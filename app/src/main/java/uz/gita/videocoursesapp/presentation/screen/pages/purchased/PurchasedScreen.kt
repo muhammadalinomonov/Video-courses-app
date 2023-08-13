@@ -1,6 +1,6 @@
 package uz.gita.videocoursesapp.presentation.screen.pages.purchased
 
-import android.util.Log
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -79,12 +79,27 @@ class PurchasedScreen : Tab, AppScreen() {
                 }
                 when (val uiStateValue = uiState.value) {
                     is PurchasedContract.UiState.Lessons -> {
-                        LazyColumn {
-                            Log.d("KKK", uiStateValue.list.toString())
-                            items(uiStateValue.list) {
-                                VideoItem(it = it, onClick = {
-                                    onEventDispatcher(PurchasedContract.Intent.OpenDetailsScreen(it))
-                                })
+                        if (uiStateValue.list.isNotEmpty()) {
+                            LazyColumn {
+                                items(uiStateValue.list) {
+                                    VideoItem(it = it, onClick = {
+                                        onEventDispatcher(
+                                            PurchasedContract.Intent.OpenDetailsScreen(
+                                                it
+                                            )
+                                        )
+                                    })
+                                }
+                            }
+                        } else {
+                            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+
+                                Text(
+                                    text = "You have not purchased courses",
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 22.sp,
+                                    modifier = Modifier.padding(horizontal = 16.dp)
+                                )
                             }
                         }
                     }

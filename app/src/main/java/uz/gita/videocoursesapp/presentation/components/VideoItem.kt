@@ -75,7 +75,7 @@ fun VideoItem(it: LessonData, onClick: (LessonData) -> Unit) {
             AsyncImage(
                 modifier = Modifier
                     .height(240.dp)
-                    .width(380.dp)
+                    .fillMaxWidth()
                     .alpha(0.8f)
                     .align(Alignment.BottomCenter)
                     .background(Color.White)
